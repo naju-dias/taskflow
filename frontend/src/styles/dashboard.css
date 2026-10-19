@@ -1,0 +1,475 @@
+/* Visão geral: contagem das tarefas, lista recente e projetos */
+
+/* ---------- Contagem (um quadradinho por tarefa) ---------- */
+
+.tally-section {
+  margin-bottom: 40px;
+}
+
+.tally {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 44rem;
+}
+
+.tally-cell {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ink-2);
+  border-radius: 4px;
+}
+
+.tally-cell.done {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.tally-cell.progress {
+  border-color: var(--accent);
+  background: linear-gradient(90deg, var(--accent) 50%, transparent 50%);
+}
+
+/* Os quadrados da contagem aparecem um a um quando a página carrega */
+.tally .tally-cell {
+  animation: tally-in 0.3s ease-out backwards;
+  animation-delay: calc(var(--i, 0) * 28ms);
+}
+
+@keyframes tally-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.tally-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-2);
+}
+
+.tally-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tally-legend .tally-cell {
+  width: 14px;
+  height: 14px;
+}
+
+.tally-legend strong {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tally .tally-cell {
+    animation: none;
+  }
+}
+
+/* ---------- Painel de tarefas ---------- */
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+
+.panel {
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px 12px;
+}
+
+.panel-header h2,
+.aside-header h2 {
+  font-size: 1.25rem;
+}
+
+.task-tabs {
+  display: flex;
+  gap: 22px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.task-tab {
+  position: relative;
+  padding: 10px 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.task-tab.active {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.task-tab.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--ink);
+}
+
+.task-tab span {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+/* ---------- Lista de tarefas (também usada na página de tarefas) ---------- */
+
+.task-list {
+  padding: 0 24px;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 68px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.task-row:last-child {
+  border-bottom: 0;
+}
+
+.task-check {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1.5px solid var(--ink-2);
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+}
+
+.task-check:hover {
+  border-color: var(--accent);
+}
+
+.task-check.checked {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.task-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  min-width: 0;
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.task-title {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.task-main:hover .task-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.task-complete .task-title {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.task-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.task-project-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--edge);
+}
+
+.status-in_progress {
+  color: var(--accent-dark);
+}
+
+.status-done {
+  color: #2f6e4d;
+}
+
+.priority-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 78px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.priority-pill i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.priority-high {
+  background: #f3d9d1;
+  color: #8f2f1b;
+}
+
+.priority-medium {
+  background: #f1e2c4;
+  color: #7a5210;
+}
+
+.priority-low {
+  background: #d9e6dc;
+  color: #2f5a45;
+}
+
+.task-due {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 92px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+.task-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Lixeira aparece ao passar o mouse; em telas de toque fica sempre visível */
+.delete-action {
+  display: none;
+}
+
+.task-row:hover .delete-action,
+.task-row:focus-within .delete-action {
+  display: inline-grid;
+}
+
+@media (hover: none) {
+  .delete-action {
+    display: inline-grid;
+  }
+}
+
+/* Select de status: escondido até a linha receber foco pelo teclado */
+.quick-status {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.task-row:focus-within .quick-status {
+  position: static;
+  width: 120px;
+  height: 34px;
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ---------- Projetos (coluna da direita, sem card) ---------- */
+
+.aside-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+.project-progress-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  text-align: left;
+}
+
+.project-progress-item:hover .project-progress-name {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.project-symbol {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--pc-soft);
+  color: var(--pc);
+}
+
+.project-progress-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.project-progress-name {
+  overflow: hidden;
+  color: var(--ink);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-progress-meta {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.project-progress-item > strong {
+  min-width: 3.5ch;
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.mini-progress {
+  display: block;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--track);
+}
+
+.mini-progress i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+.empty-projects {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 4px;
+  color: var(--ink-2);
+}
+
+.empty-projects .empty-icon {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .overview-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 700px) {
+  .panel-header,
+  .task-tabs,
+  .task-list {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .task-row {
+    gap: 10px;
+  }
+
+  .task-due {
+    display: none;
+  }
+
+  /* Prioridade vira só um ponto colorido, para sobrar espaço ao título */
+  .priority-pill {
+    min-width: 0;
+    padding: 0;
+    gap: 0;
+    background: transparent;
+    font-size: 0;
+  }
+
+  .priority-pill i {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Tocar no título já abre a edição */
+  .task-actions .icon-button:not(.delete-action) {
+    display: none;
+  }
+
+  .task-subtitle {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}

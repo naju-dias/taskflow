@@ -1,0 +1,121 @@
+/* Variáveis, reset e estilos base */
+
+:root {
+  --bg: #e9e6dd; /* pedra: fundo da página */
+  --surface: #f7f5ef; /* papel: painéis e modais */
+  --surface-2: #efece4; /* papel mais escuro: hover e áreas discretas */
+  --field: #fcfbf7; /* fundo dos campos de formulário */
+  --ink: #1f1c18; /* texto principal */
+  --ink-2: #4a463f; /* texto secundário */
+  --muted: #655f55; /* texto de apoio */
+  --rule: #d3cfc3; /* linhas divisórias */
+  --edge: #8a857a; /* borda de campos (contraste mínimo 3:1) */
+  --track: #dcd8cc; /* fundo de barras de progresso */
+  --sidebar: #26211c; /* café: menu lateral e toast */
+  --sidebar-text: #c8c1b2;
+  --sidebar-muted: #a39c8e;
+  --sidebar-line: #3a342d;
+  --accent: #2f44f2; /* ultramar: ações e progresso */
+  --accent-dark: #1f31c7;
+  --display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
+
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Textura de papel bem sutil por cima da cor de fundo */
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  background-color: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .17 0 0 0 0 .13 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(47, 68, 242, 0.4);
+  outline-offset: 2px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Cores dos projetos: --pc (principal), --pc-soft (fundo suave), --pc-light (para fundo escuro) */
+.color-0 {
+  --pc: #2f44f2;
+  --pc-soft: #dfe2fc;
+  --pc-light: #8b99ff;
+}
+
+.color-1 {
+  --pc: #a86a0f;
+  --pc-soft: #f1e2c4;
+  --pc-light: #e0a84a;
+}
+
+.color-2 {
+  --pc: #3f7a5c;
+  --pc-soft: #d9e6dc;
+  --pc-light: #7fb89a;
+}
+
+.color-3 {
+  --pc: #b04a31;
+  --pc-soft: #f0d9d0;
+  --pc-light: #e08a70;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

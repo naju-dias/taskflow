@@ -1,0 +1,193 @@
+/* Menu lateral (café escuro) */
+
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  padding: 28px 16px 18px;
+  overflow-y: auto;
+  background: var(--sidebar);
+  color: var(--sidebar-text);
+}
+
+.sidebar :focus-visible {
+  outline-color: #f7f5ef;
+}
+
+.sidebar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px 32px;
+}
+
+.brand {
+  color: #f7f5ef;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.mobile-close {
+  display: none;
+}
+
+.main-nav,
+.project-nav {
+  display: grid;
+  gap: 2px;
+}
+
+.nav-item,
+.project-nav-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--sidebar-text);
+  font-size: 0.9375rem;
+  text-align: left;
+}
+
+.nav-item {
+  gap: 12px;
+  height: 42px;
+  padding: 0 12px;
+  font-weight: 500;
+}
+
+.project-nav-item {
+  gap: 10px;
+  height: 38px;
+  padding: 0 12px;
+}
+
+.nav-item:hover,
+.project-nav-item:hover {
+  background: rgba(247, 245, 239, 0.07);
+  color: #fff;
+}
+
+.nav-item.active,
+.project-nav-item.selected {
+  background: rgba(247, 245, 239, 0.12);
+  color: #fff;
+}
+
+.nav-item svg {
+  flex-shrink: 0;
+}
+
+.nav-count,
+.project-task-count {
+  margin-left: auto;
+  color: var(--sidebar-muted);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.project-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 32px 0 8px;
+  padding: 0 4px 0 12px;
+}
+
+.nav-label {
+  color: var(--sidebar-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.project-color {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pc-light, var(--sidebar-muted));
+}
+
+.project-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-empty {
+  padding: 0 12px;
+  color: var(--sidebar-muted);
+  font-size: 0.875rem;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 6px 0;
+  border-top: 1px solid var(--sidebar-line);
+}
+
+.profile-avatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #f7f5ef;
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.profile-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-copy strong {
+  display: block;
+  overflow: hidden;
+  color: #f7f5ef;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar .icon-button {
+  color: var(--sidebar-text);
+}
+
+.sidebar .icon-button:hover {
+  background: rgba(247, 245, 239, 0.1);
+  color: #fff;
+}
+
+/* No celular o menu vira uma gaveta que desliza da esquerda */
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.22s ease;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+    box-shadow: 16px 0 48px rgba(31, 28, 24, 0.35);
+  }
+
+  .mobile-close {
+    display: inline-grid;
+  }
+}

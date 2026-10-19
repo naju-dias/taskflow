@@ -1,0 +1,163 @@
+/* Modais, formulários e toast */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(31, 28, 24, 0.5);
+}
+
+.modal-card {
+  width: min(100%, 520px);
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 20px 60px rgba(31, 28, 24, 0.3);
+  animation: modal-in 0.18s ease-out;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 28px 4px;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.modal-form {
+  display: grid;
+  gap: 18px;
+  padding: 16px 28px 28px;
+}
+
+.modal-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.modal-form input,
+.modal-form textarea,
+.modal-form select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.modal-form textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.modal-form input:focus-visible,
+.modal-form textarea:focus-visible,
+.modal-form select:focus-visible {
+  border-color: var(--accent);
+  outline-offset: 0;
+}
+
+.optional-label {
+  margin-left: 4px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+/* ---------- Toast ---------- */
+
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(440px, calc(100vw - 32px));
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--sidebar);
+  color: #f7f5ef;
+  box-shadow: 0 10px 30px rgba(31, 28, 24, 0.3);
+  animation: modal-in 0.18s ease-out;
+}
+
+.toast > span {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #7fb89a;
+  color: #14281e;
+}
+
+.toast-error > span {
+  background: #e08a70;
+  color: #3a1409;
+}
+
+.toast > button {
+  display: grid;
+  place-items: center;
+  margin-left: 4px;
+  border: 0;
+  background: transparent;
+  color: var(--sidebar-muted);
+}
+
+.toast > button:hover {
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-header {
+    padding: 20px 20px 4px;
+  }
+
+  .modal-form {
+    padding: 12px 20px 24px;
+  }
+}

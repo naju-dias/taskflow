@@ -1,0 +1,109 @@
+/* Estrutura da página: conteúdo principal, topbar, cabeçalho das páginas e rodapé */
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: 260px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 40px;
+}
+
+.mobile-menu,
+.mobile-scrim {
+  display: none;
+}
+
+.today-label {
+  display: block;
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* Primeira letra maiúscula ("domingo" → "Domingo") */
+.today-label::first-letter {
+  text-transform: uppercase;
+}
+
+.page-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 40px 40px;
+}
+
+.welcome-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.welcome-row h1 {
+  font-size: clamp(2rem, 3.6vw, 2.875rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.welcome-row .muted {
+  margin-top: 10px;
+  font-size: 1.0625rem;
+}
+
+.app-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px 28px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 900px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding: 0 20px;
+  }
+
+  .mobile-menu {
+    display: inline-grid;
+    margin-left: -8px;
+  }
+
+  .mobile-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    display: block;
+    border: 0;
+    background: rgba(31, 28, 24, 0.5);
+  }
+
+  .page-container {
+    padding: 8px 20px 32px;
+  }
+
+  .welcome-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .app-footer {
+    padding: 16px 20px 24px;
+  }
+}

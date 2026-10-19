@@ -1,0 +1,15 @@
+/**
+ * TaskFlow — estilos globais.
+ * Este arquivo só importa os módulos de ./styles/, na ordem certa.
+ * (base.css vem primeiro porque define as variáveis de cor e fonte.)
+ */
+
+@import "./styles/base.css";
+@import "./styles/buttons.css";
+@import "./styles/layout.css";
+@import "./styles/sidebar.css";
+@import "./styles/dashboard.css";
+@import "./styles/pages.css";
+@import "./styles/states.css";
+@import "./styles/modal.css";
+@import "./styles/auth.css";

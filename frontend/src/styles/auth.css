@@ -1,0 +1,344 @@
+/* Tela de login / cadastro
+ * Duas colunas: apresentação + prévia animada à esquerda, formulário à direita.
+ */
+
+.login {
+  --login-paper: #e9e6dd;
+  --login-ink: #1f1c18;
+  --login-muted: #655f55;
+  --login-rule: #d3cfc3;
+  --login-field: #8a857a;
+  --login-accent: #2f44f2;
+  --login-accent-dark: #1f31c7;
+  --login-display: "Bricolage Grotesque", "DM Sans", system-ui, sans-serif;
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(380px, 0.7fr);
+  background: var(--login-paper);
+  color: var(--login-ink);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ---------- Coluna esquerda ---------- */
+
+.login-story {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(28px, 5vw, 64px);
+}
+
+.login-wordmark {
+  font-family: var(--login-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.login-hero {
+  max-width: 46rem;
+  margin-block: auto;
+  padding-block: 48px;
+}
+
+.login-hero h1 {
+  margin: 0 0 20px;
+  font-family: var(--login-display);
+  font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.login-lede {
+  max-width: 34em;
+  margin: 0 0 44px;
+  color: var(--login-muted);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.login-story-footer {
+  margin: 0;
+  color: var(--login-muted);
+  font-size: 0.875rem;
+}
+
+/* ---------- Prévia: lista de tarefas ---------- */
+
+.login-list {
+  max-width: 34rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1.5px solid var(--login-ink);
+}
+
+.login-task {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--login-rule);
+}
+
+.login-check {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--login-ink);
+  border-radius: 5px;
+}
+
+/* Marca de "check" desenhada com borda; começa invisível */
+.login-check::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+.login-task-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+/* O "risco" é um fundo que cresce da esquerda para a direita */
+.login-task-title {
+  width: fit-content;
+  max-width: 100%;
+  font-weight: 600;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 58%;
+  background-size: 0% 1.5px;
+}
+
+.login-task-project,
+.login-task-due {
+  color: var(--login-muted);
+  font-size: 0.875rem;
+}
+
+/* Animação: roda uma vez, no atraso definido em --delay (segundos) */
+.login-task.is-done .login-check {
+  animation: login-check-fill 0.25s ease-out var(--delay) forwards;
+}
+
+.login-task.is-done .login-check::after {
+  animation: login-check-tick 0.2s ease-out var(--delay) forwards;
+}
+
+.login-task.is-done .login-task-title {
+  animation:
+    login-strike 0.45s ease-out var(--delay) forwards,
+    login-dim 0.3s ease-out var(--delay) forwards;
+}
+
+@keyframes login-check-fill {
+  to {
+    background: var(--login-accent);
+    border-color: var(--login-accent);
+  }
+}
+
+@keyframes login-check-tick {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes login-strike {
+  to {
+    background-size: 100% 1.5px;
+  }
+}
+
+@keyframes login-dim {
+  to {
+    color: var(--login-muted);
+  }
+}
+
+/* Sem animação: mostra direto o estado final */
+@media (prefers-reduced-motion: reduce) {
+  .login-task.is-done .login-check,
+  .login-task.is-done .login-check::after,
+  .login-task.is-done .login-task-title {
+    animation: none;
+  }
+
+  .login-task.is-done .login-check {
+    background: var(--login-accent);
+    border-color: var(--login-accent);
+  }
+
+  .login-task.is-done .login-check::after {
+    opacity: 1;
+  }
+
+  .login-task.is-done .login-task-title {
+    background-size: 100% 1.5px;
+    color: var(--login-muted);
+  }
+}
+
+/* ---------- Coluna direita: formulário ---------- */
+
+.login-panel {
+  display: grid;
+  place-items: center;
+  padding: 40px;
+  background: #f7f5ef;
+  border-left: 1px solid var(--login-rule);
+}
+
+.login-form {
+  display: grid;
+  gap: 18px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.login-form h2 {
+  margin: 0;
+  font-family: var(--login-display);
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.login-form-hint {
+  margin: -10px 0 6px;
+  color: var(--login-muted);
+}
+
+.login-field {
+  display: grid;
+  gap: 6px;
+}
+
+.login-field > span {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.login-field small {
+  color: var(--login-muted);
+  font-size: 0.8125rem;
+}
+
+.login input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--login-field);
+  border-radius: 6px;
+  background: #fcfbf7;
+  color: var(--login-ink);
+  font-size: 1rem; /* 16px evita zoom automático no iPhone */
+}
+
+.login input:focus-visible {
+  border-color: var(--login-accent);
+  outline: 3px solid rgba(47, 68, 242, 0.28);
+  outline-offset: 0;
+}
+
+.login-submit,
+.login-demo {
+  height: 48px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.login-submit {
+  border: 0;
+  background: var(--login-accent);
+  color: #fff;
+}
+
+.login-submit:hover:not(:disabled) {
+  background: var(--login-accent-dark);
+}
+
+.login-demo {
+  border: 1px solid var(--login-ink);
+  background: transparent;
+  color: var(--login-ink);
+}
+
+.login-demo:hover:not(:disabled) {
+  background: var(--login-paper);
+}
+
+.login-switch {
+  margin: 4px 0 0;
+  color: var(--login-muted);
+  font-size: 0.9375rem;
+}
+
+.login-switch button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--login-ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.login-error {
+  padding: 10px 12px;
+  border-left: 3px solid #b3261e;
+  background: #fdf0ef;
+  color: #8c1d18;
+  font-size: 0.9375rem;
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 900px) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+
+  .login-story {
+    padding: 28px 24px 8px;
+  }
+
+  .login-hero {
+    padding-block: 28px 12px;
+  }
+
+  .login-lede {
+    margin-bottom: 0;
+  }
+
+  /* No celular, o formulário vem logo depois do título */
+  .login-list,
+  .login-story-footer {
+    display: none;
+  }
+
+  .login-panel {
+    align-items: start;
+    padding: 24px 24px 48px;
+    background: transparent;
+    border-left: 0;
+  }
+}
